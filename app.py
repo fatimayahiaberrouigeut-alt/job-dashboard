@@ -1,3 +1,1 @@
-
-    st.write(df.columns)
-   
+st.write(df.columns)
