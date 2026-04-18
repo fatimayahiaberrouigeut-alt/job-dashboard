@@ -3,17 +3,23 @@ import pandas as pd
 
 st.title("📊 Job Market Dashboard")
 
-# lire le fichier
 df = pd.read_csv("emploitic (2).csv")
 
-# afficher nombre total
+# 🔥 FILTRE PAR VILLE (si colonne existe)
+if "location" in df.columns:
+    villes = st.selectbox("Choisir une ville", ["Toutes"] + list(df["location"].dropna().unique()))
+    
+    if villes != "Toutes":
+        df = df[df["location"] == villes]
+
 st.metric("Total Jobs", len(df))
 
-# afficher tableau
-st.subheader("📄 Données")
 st.dataframe(df)
-
-# top titres (si colonne existe)
 if "title" in df.columns:
     st.subheader("📈 Top Jobs")
     st.bar_chart(df["title"].value_counts().head(10))
+    st.subheader("🧠 Insights")
+
+if "title" in df.columns:
+    top_job = df["title"].value_counts().idxmax()
+    st.write(f"Le job le plus demandé est : **{top_job}**")
