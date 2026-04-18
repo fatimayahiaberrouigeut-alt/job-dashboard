@@ -18,6 +18,7 @@ st.dataframe(df)
 if "title" in df.columns:
     st.subheader("📈 Top Jobs")
     st.bar_chart(df["title"].value_counts().head(10))
+    st.write(df.columns)
     st.subheader("🧠 Insights")
 
 if "title" in df.columns:
